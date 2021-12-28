@@ -84,7 +84,4 @@ Route::post('daftarlemburperbulan', 'LemburController@pilihdaftarlemburperbulan'
 //Surat Tugas
 Route::get('surattugas', 'SuratTugasController@daftarsurattugas');
 
-Route::post('/', function () {
-    Auth::user()->notify(new TelegramNotification());
-});
 

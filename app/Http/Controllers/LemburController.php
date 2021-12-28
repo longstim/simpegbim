@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
-use \App\Notifications\LaravelTelegramNotification;
+use \App\Notifications\TelegramNotification;
 use Carbon\Carbon;
 use DB;
 Use Redirect;
@@ -104,10 +104,7 @@ class LemburController extends Controller
         'jabatan_penyetuju' => $request->input('jabatan_penyetuju'),
       );
 
-       /*Auth::user()->notify(new LaravelTelegramNotification([
-            'text' => "Welcome to the application"
-        ]));
-        */
+      Auth::user()->notify(new TelegramNotification());
         
       DB::table('td_lembur_header')->where('id','=',$request->input('id'))->update($data);
   

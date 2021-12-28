@@ -18,7 +18,7 @@
    <table border="0" width="650" cellpadding="1" cellspacing="0" id="kopsurat">
       <tr>
         <td rowspan="5" cellpadding="4" ><img src="{{asset('image/logokemenperin.png')}}" width="180px"></td>
-        <td align="center" style="font-size:11pt">BADAN PENELITIAN DAN PENGEMBANGAN INDUSTRI</td>
+        <td align="center" style="font-size:11pt">BADAN STANDARDISASI DAN KEBIJAKAN JASA INDUSTRI</td>
       </tr>
       <tr valign="top">
           <td align="center" style="font-size:12pt"><b>BALAI RISET DAN STANDARDISASI INDUSTRI MEDAN</b></td>
