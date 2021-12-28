@@ -33,6 +33,11 @@ class APIController extends Controller
 
             $tanggal = date("Y-m-d");
 
+            $hari_ini=getNamaHariIni();
+            $tglHari_ini = date("d-m-Y");
+
+            $result["tanggal"] = $hari_ini.", ".$tglHari_ini;
+
             $absen = DB::select('select username, Cast(waktu_login as Date) as "tanggal", MIN(waktu_login) as "waktu_masuk", MAX(waktu_login) as "waktu_pulang" from td_login_history where username = "'.$request->username.'" and Date(waktu_login)="'.$tanggal.'" group by username, Cast(waktu_login as Date)');
 
             $result["jammasuk"] = "-";
@@ -72,6 +77,11 @@ class APIController extends Controller
 
         $result["jammasuk"] = "-";
         $result["jampulang"] = "-";
+
+        $hari_ini=getNamaHariIni();
+        $tglHari_ini = date("d-m-Y");
+
+        $result["tanggal"] = $hari_ini.", ".$tglHari_ini;
 
         if(!empty($absen))
         {
