@@ -64,7 +64,6 @@ class AbsenController extends Controller
       	}
 
       	$pegawai=DB::table('md_pegawai')
-                  ->where('jenis_pegawai','=','PPNPN')
                   ->select('md_pegawai.*')
                   ->orderBy('id','asc')
                   ->get();
