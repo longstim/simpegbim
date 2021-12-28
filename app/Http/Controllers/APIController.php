@@ -18,6 +18,9 @@ class APIController extends Controller
 {
     function loginAndroid(Request $request) 
     {
+
+        setlocale(LC_ALL, 'IND');
+
         $logg = DB::table('users')->where('username', '=', $request->username)->first();
 
         if (!empty($logg) AND Hash::check($request->password, $logg->password)) 
@@ -64,6 +67,8 @@ class APIController extends Controller
 
     function checkIN(Request $request) 
     {
+        setlocale(LC_ALL, 'IND');
+        
         $data = array(
           'username' => $request->username,
           'waktu_login' => Carbon::now()->toDateTimeString(),
