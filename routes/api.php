@@ -20,3 +20,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::post('/loginAndroid', 'APIController@loginAndroid');
 
 Route::post('/checkIN', 'APIController@checkIN');
+
+Route::post('/getDataAwal', 'APIController@getDataAwal');
