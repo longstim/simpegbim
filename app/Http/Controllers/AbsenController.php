@@ -138,7 +138,7 @@ class AbsenController extends Controller
         else
         {
 
-            return Redirect::to('formabsen')->with('message', 'Absen gagal. Anda tidak sedang berada di lokasi Kantor Baristand Industri Medan');
+            return Redirect::to('formabsen')->with('message', 'Absen gagal. Anda berada di luar jangkauan/radius untuk absensi Baristand Industri Medan');
         }
     }
 }
