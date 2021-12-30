@@ -31,7 +31,7 @@ Route::post('absen', 'AbsenController@daftarabsen');
 
 Route::get('formabsen', 'AbsenController@formabsen');
 
-Route::get('prosesabsen/{radius}', 'AbsenController@prosesabsen');
+Route::get('prosesabsen/{radius}/{radworkshop}', 'AbsenController@prosesabsen');
 
 
 

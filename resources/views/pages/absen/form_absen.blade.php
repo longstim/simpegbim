@@ -55,8 +55,9 @@
       {
 
          $rad = calRadius(p.coords.latitude, p.coords.longitude);
+         $radWorkshop = calRadiusWorkshop(p.coords.latitude, p.coords.longitude);
 
-         window.location.href = 'prosesabsen/' + $rad;
+         window.location.href = 'prosesabsen/' + $rad + '/' + $radWorkshop;
       }
       else
       {
@@ -74,12 +75,35 @@
       // var R = 6.371; // km
       var R = 6371000;
 
-          latBIM = 3.568948600750669;
-          longBIM = 98.69060561164635;
+      latBIM = 3.568948600750669;
+      longBIM = 98.69060561164635;
+
 
       var dLat = toRad(latCur-latBIM);
       var dLon = toRad(longCur-longBIM);
       var lat1 = toRad(latBIM);
+      var lat2 = toRad(latCur);
+
+      var a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+        Math.sin(dLon/2) * Math.sin(dLon/2) * Math.cos(lat1) * Math.cos(lat2); 
+      var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+      var d = R * c;
+      return d;
+    }
+
+
+    function calRadiusWorkshop(latCur, longCur)
+    {
+      // var R = 6.371; // km
+      var R = 6371000;
+
+
+      latGedungWorkshop = 3.5374521023200693;
+      longGedungWorkshop = 98.7117281504487;
+
+      var dLat = toRad(latCur-latGedungWorkshop);
+      var dLon = toRad(longCur-longGedungWorkshop);
+      var lat1 = toRad(latGedungWorkshop);
       var lat2 = toRad(latCur);
 
       var a = Math.sin(dLat/2) * Math.sin(dLat/2) +
@@ -113,7 +137,7 @@
            timer: 1500
         })
       }
-      else if(message_text=="Absen gagal. Anda tidak sedang berada di lokasi Kantor Baristand Industri Medan")
+      else if(message_text=="Absen gagal. Anda berada di luar jangkauan/radius untuk absensi Baristand Industri Medan")
       {
          Swal.fire({     
            icon: 'error',

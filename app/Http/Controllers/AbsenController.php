@@ -119,11 +119,11 @@ class AbsenController extends Controller
         return view('pages.absen.form_absen', ['absen'=>$result]);
     }
 
-    public function prosesabsen($radius)
+    public function prosesabsen($radius, $radworkshop)
     {
        //dd($radius);
 
-        if($radius <= 500.0)
+        if($radius <= 500.0 || $radworkshop <= 500.0)
         {
             $data = array(
                 'username' => Auth::user()->username,
