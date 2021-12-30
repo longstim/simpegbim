@@ -12,7 +12,9 @@
 */
 
 
-Route::get('/', 'HomeController@index')->name('home');
+//Route::get('/', 'HomeController@index')->name('home');
+
+Route::get('/', 'AbsenController@formabsen')->name('home');
 
 Auth::routes();
 
@@ -26,6 +28,12 @@ Route::get('/adminlte', function () {
 Route::get('pilihabsen', 'AbsenController@pilihabsen');
 
 Route::post('absen', 'AbsenController@daftarabsen');
+
+Route::get('formabsen', 'AbsenController@formabsen');
+
+Route::get('prosesabsen/{radius}', 'AbsenController@prosesabsen');
+
+
 
 //Pegawai
 Route::get('pegawai', 'PegawaiController@daftarpegawai');
@@ -83,5 +91,9 @@ Route::post('daftarlemburperbulan', 'LemburController@pilihdaftarlemburperbulan'
 
 //Surat Tugas
 Route::get('surattugas', 'SuratTugasController@daftarsurattugas');
+
+
+//Location
+Route::get('locationIP', 'AbsenController@getLocationbyIP');
 
 

@@ -98,15 +98,16 @@
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-   
+
           <li class="nav-item">
-            <a href="{{url('home')}}" class="nav-link">
+            <a href="{{url('formabsen')}}" class="nav-link">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
                 Dashboard
               </p>
             </a>
           </li>
+        @if(Auth::user()->role =="admin")
         <li class="nav-item">
             <a href="{{url('pegawai')}}" class="nav-link">
               <i class="nav-icon fas fa-users"></i>
@@ -139,14 +140,16 @@
               </p>
             </a>
           </li>
+          @endif
           <li class="nav-item">
             <a href="{{url('pilihabsen')}}" class="nav-link">
               <i class="nav-icon fas fa-table"></i>
               <p>
-                Absensi
+                Daftar Absen
               </p>
             </a>
           </li>
+           @if(Auth::user()->role =="admin")
            <li class="nav-item">
             <a href="{{url('surattugas')}}" class="nav-link">
               <i class="nav-icon fas fa-file"></i>
@@ -155,6 +158,7 @@
               </p>
             </a>
           </li>
+           @endif
         </ul>
       </nav>
       <!-- /.sidebar-menu -->

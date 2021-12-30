@@ -20,7 +20,7 @@
 	<font size=3 >
 		<center>
 		<h3>
-			<b>Data Absensi PPNPN Balai Riset dan Standardisasi Industri Medan<br>
+			<b>Daftar Absen Pegawai Balai Riset dan Standardisasi Industri Medan<br>
 			Bulan {{$data['bulan']}} 
 		</h3>
 	</font> 
