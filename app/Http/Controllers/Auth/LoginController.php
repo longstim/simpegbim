@@ -47,11 +47,11 @@ class LoginController extends Controller
 
     function authenticated(Request $request, $user)
     {
-        $data = array(
+        /*$data = array(
           'username' => $user->username,
           'waktu_login' => Carbon::now()->toDateTimeString(),
         );
 
-        $insertID = DB::table('td_login_history')->insertGetId($data);
+        $insertID = DB::table('td_login_history')->insertGetId($data);*/
     }
 }
