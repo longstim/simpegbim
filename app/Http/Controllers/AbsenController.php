@@ -31,6 +31,8 @@ class AbsenController extends Controller
         $bulanVal = $request->input('bulan');
         $tahunVal = $request->input('tahun');
 
+        $username = Auth::user()->username;
+
         $kalender = CAL_GREGORIAN;
 
         if(empty($bulanVal) || empty($tahunVal))
@@ -46,7 +48,7 @@ class AbsenController extends Controller
 
         $hari = cal_days_in_month($kalender, $bulan, $tahun);
 
-      	$absen = DB::select('select username, Cast(waktu_login as Date) as "tanggal", MIN(waktu_login) as "waktu_masuk", MAX(waktu_login) as "waktu_pulang" from td_login_history where Month(waktu_login)="'.$bulan.'" and Year(waktu_login)="'.$tahun.'" group by username, Cast(waktu_login as Date)');
+      	$absen = DB::select('select username, Cast(waktu_login as Date) as "tanggal", MIN(waktu_login) as "waktu_masuk", MAX(waktu_login) as "waktu_pulang" from td_login_history where username = "'.$username.'" and Month(waktu_login)="'.$bulan.'" and Year(waktu_login)="'.$tahun.'" group by username, Cast(waktu_login as Date)');
 
         $dateObj = DateTime::createFromFormat('!m', $bulan);  
         $monthName = $dateObj->format('F');
@@ -65,12 +67,62 @@ class AbsenController extends Controller
       	}
 
       	$pegawai=DB::table('md_pegawai')
+                  ->where('nip', '=', $username)
                   ->select('md_pegawai.*')
                   ->orderBy('id','asc')
                   ->get();
 
         return view('pages.absen.daftarabsen', compact('data','absen','tanggal','pegawai'));
    	}
+
+    public function daftarabsen2(Request $request)
+    {
+        setlocale(LC_ALL, 'IND');
+        //$bulan  = Carbon::parse(now())->formatLocalized('%B %Y');
+
+        $bulanVal = $request->input('bulan');
+        $tahunVal = $request->input('tahun');
+
+        $kalender = CAL_GREGORIAN;
+
+        if(empty($bulanVal) || empty($tahunVal))
+        {
+            $bulan = date('m');
+            $tahun = date('Y');
+        }
+        else
+        {
+            $bulan = $bulanVal;
+            $tahun = $tahunVal;
+        }
+
+        $hari = cal_days_in_month($kalender, $bulan, $tahun);
+
+        $absen = DB::select('select username, Cast(waktu_login as Date) as "tanggal", MIN(waktu_login) as "waktu_masuk", MAX(waktu_login) as "waktu_pulang" from td_login_history where Month(waktu_login)="'.$bulan.'" and Year(waktu_login)="'.$tahun.'" group by username, Cast(waktu_login as Date)');
+
+        $dateObj = DateTime::createFromFormat('!m', $bulan);  
+        $monthName = $dateObj->format('F');
+
+        $data = [
+          'bulan'  => $monthName." ".$tahun,
+        ];
+
+
+
+        $tanggal[]="";
+  
+        for($i=0;$i<$hari;$i++)
+        {
+            $tanggal[$i] = $i+1;
+        }
+
+        $pegawai=DB::table('md_pegawai')
+                  ->select('md_pegawai.*')
+                  ->orderBy('id','asc')
+                  ->get();
+
+        return view('pages.absen.daftarabsen', compact('data','absen','tanggal','pegawai'));
+    }
 
     public function getLocationbyIP(Request $request)
     {
