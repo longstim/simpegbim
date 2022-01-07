@@ -184,9 +184,9 @@
                       <th>No</th>
                       <th>Jabatan</th>
                       <th>Jenjang Jabatan</th>
-                      <th>T.M.T</th>
-                      <th>No. SK</th>
-                      <th>Tanggal SK</th>
+                      <th width="100px">T.M.T</th>
+                      <th width="150px">No. SK</th>
+                      <th width="100px">Tanggal SK</th>
                       <th>Aksi</th>
                     </tr>
                   </thead>

@@ -24,4 +24,14 @@ class SuratTugasController extends Controller
         return view('pages.surattugas.daftarsurattugas', compact('stheader'));
    	}
 
+    public function tambahsurattugas()
+    {
+        $lemburheader=DB::table('td_lembur_header')->get();
+        $lemburdetail=DB::table('td_lembur_detail')->get();
+        $pegawai=DB::table('md_pegawai')->get();
+
+        return view('pages.lembur.form_tambahsurattugas',['lemburheader'=>$lemburheader, 'lemburdetail'=>$lemburdetail, 'pegawai'=>$pegawai]);
+    }
+
+
 }

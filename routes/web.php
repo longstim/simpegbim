@@ -29,10 +29,11 @@ Route::get('pilihabsen', 'AbsenController@pilihabsen');
 
 Route::post('absen', 'AbsenController@daftarabsen');
 
+Route::post('daftarabsen', 'AbsenController@daftarabsenpegawai');
+
 Route::get('formabsen', 'AbsenController@formabsen');
 
-Route::get('prosesabsen/{radius}/{radworkshop}', 'AbsenController@prosesabsen');
-
+Route::get('prosesabsen/{radius}/{radworkshop}/{radlogam}', 'AbsenController@prosesabsen');
 
 
 //Pegawai
@@ -91,6 +92,7 @@ Route::post('daftarlemburperbulan', 'LemburController@pilihdaftarlemburperbulan'
 
 //Surat Tugas
 Route::get('surattugas', 'SuratTugasController@daftarsurattugas');
+Route::get('tambahsurattugas', 'SuratTugasController@tambahsurattugas');
 
 
 //Location

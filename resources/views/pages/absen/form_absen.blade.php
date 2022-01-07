@@ -56,8 +56,9 @@
 
          $rad = calRadius(p.coords.latitude, p.coords.longitude);
          $radWorkshop = calRadiusWorkshop(p.coords.latitude, p.coords.longitude);
+         $radLogam = calRadiusLogam(p.coords.latitude, p.coords.longitude);
 
-         window.location.href = 'prosesabsen/' + $rad + '/' + $radWorkshop;
+         window.location.href = 'prosesabsen/' + $rad + '/' + $radWorkshop + '/' + $radLogam;
       }
       else
       {
@@ -104,6 +105,26 @@
       var dLat = toRad(latCur-latGedungWorkshop);
       var dLon = toRad(longCur-longGedungWorkshop);
       var lat1 = toRad(latGedungWorkshop);
+      var lat2 = toRad(latCur);
+
+      var a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+        Math.sin(dLon/2) * Math.sin(dLon/2) * Math.cos(lat1) * Math.cos(lat2); 
+      var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+      var d = R * c;
+      return d;
+    }
+
+    function calRadiusLogam(latCur, longCur)
+    {
+      // var R = 6.371; // km
+      var R = 6371000;
+
+      latLogam = 3.5367058823221096;
+      longLogam = 98.72773776757451;
+
+      var dLat = toRad(latCur-latLogam);
+      var dLon = toRad(longCur-longLogam);
+      var lat1 = toRad(latLogam);
       var lat2 = toRad(latCur);
 
       var a = Math.sin(dLat/2) * Math.sin(dLat/2) +

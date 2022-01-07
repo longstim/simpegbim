@@ -32,6 +32,7 @@ class AbsenController extends Controller
         $tahunVal = $request->input('tahun');
 
         $username = Auth::user()->username;
+        $role = Auth::user()->role;
 
         $kalender = CAL_GREGORIAN;
 
@@ -48,7 +49,17 @@ class AbsenController extends Controller
 
         $hari = cal_days_in_month($kalender, $bulan, $tahun);
 
-      	$absen = DB::select('select username, Cast(waktu_login as Date) as "tanggal", MIN(waktu_login) as "waktu_masuk", MAX(waktu_login) as "waktu_pulang" from td_login_history where username = "'.$username.'" and Month(waktu_login)="'.$bulan.'" and Year(waktu_login)="'.$tahun.'" group by username, Cast(waktu_login as Date)');
+        if($role == "admin")
+        {  
+
+            $absen = DB::select('select username, Cast(waktu_login as Date) as "tanggal", MIN(waktu_login) as "waktu_masuk", MAX(waktu_login) as "waktu_pulang" from td_login_history where Month(waktu_login)="'.$bulan.'" and Year(waktu_login)="'.$tahun.'" group by username, Cast(waktu_login as Date)');  
+        }
+        else
+        {
+            $absen = DB::select('select username, Cast(waktu_login as Date) as "tanggal", MIN(waktu_login) as "waktu_masuk", MAX(waktu_login) as "waktu_pulang" from td_login_history where username = "'.$username.'" and Month(waktu_login)="'.$bulan.'" and Year(waktu_login)="'.$tahun.'" group by username, Cast(waktu_login as Date)');
+        }
+
+
 
         $dateObj = DateTime::createFromFormat('!m', $bulan);  
         $monthName = $dateObj->format('F');
@@ -66,16 +77,26 @@ class AbsenController extends Controller
       		$tanggal[$i] = $i+1;
       	}
 
-      	$pegawai=DB::table('md_pegawai')
+        if($role == "admin")
+        {
+      	    $pegawai=DB::table('md_pegawai')
+                  ->select('md_pegawai.*')
+                  ->orderBy('id','asc')
+                  ->get();
+        }
+        else
+        {
+            $pegawai=DB::table('md_pegawai')
                   ->where('nip', '=', $username)
                   ->select('md_pegawai.*')
                   ->orderBy('id','asc')
                   ->get();
+        }
 
         return view('pages.absen.daftarabsen', compact('data','absen','tanggal','pegawai'));
    	}
 
-    public function daftarabsen2(Request $request)
+    public function daftarabsenpegawai(Request $request)
     {
         setlocale(LC_ALL, 'IND');
         //$bulan  = Carbon::parse(now())->formatLocalized('%B %Y');
@@ -171,11 +192,11 @@ class AbsenController extends Controller
         return view('pages.absen.form_absen', ['absen'=>$result]);
     }
 
-    public function prosesabsen($radius, $radworkshop)
+    public function prosesabsen($radius, $radworkshop, $radlogam)
     {
        //dd($radius);
 
-        if($radius <= 500.0 || $radworkshop <= 500.0)
+        if($radius <= 500.0 || $radworkshop <= 500.0 || $radlogam <= 500.0)
         {
             $data = array(
                 'username' => Auth::user()->username,
