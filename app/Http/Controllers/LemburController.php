@@ -104,7 +104,7 @@ class LemburController extends Controller
         'jabatan_penyetuju' => $request->input('jabatan_penyetuju'),
       );
 
-      Auth::user()->notify(new TelegramNotification());
+      //Auth::user()->notify(new TelegramNotification());
         
       DB::table('td_lembur_header')->where('id','=',$request->input('id'))->update($data);
   

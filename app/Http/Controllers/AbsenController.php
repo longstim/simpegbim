@@ -196,7 +196,7 @@ class AbsenController extends Controller
     {
        //dd($radius);
 
-        if($radius <= 500.0 || $radworkshop <= 500.0 || $radlogam <= 500.0)
+        if($radius <= 500.0 || $radworkshop <= 500.0 || $radlogam <= 1000.0)
         {
             $data = array(
                 'username' => Auth::user()->username,

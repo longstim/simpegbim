@@ -119,9 +119,9 @@
       // var R = 6.371; // km
       var R = 6371000;
 
-      latLogam = 3.5367058823221096;
-      longLogam = 98.72773776757451;
-
+      latLogam = 3.5363459882075343;
+      longLogam = 98.72784770862663;
+      
       var dLat = toRad(latCur-latLogam);
       var dLon = toRad(longCur-longLogam);
       var lat1 = toRad(latLogam);
