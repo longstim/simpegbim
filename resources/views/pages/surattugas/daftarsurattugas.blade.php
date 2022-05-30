@@ -25,7 +25,8 @@
 </style>
   <div class="row">
     <div class="col-12">
-      <a href="{{ url('/tambahsurattugas') }}" class="btn btn-primary btn-md" role="button">Tambah</a>
+      <a href="{{ url('/tambahsurattugas') }}" class="btn btn-primary btn-md" role="button">Tambah</a>&nbsp;&nbsp;
+      <a href="{{ url('/cetakdatapelatihan') }}" class="btn btn-primary btn-md" role="button">Data Pelatihan</a>
       <p></p>
       <div>
         @if(Session::has('message'))
@@ -43,8 +44,10 @@
               <th>No. Surat</th>
               <th>Tanggal Surat</th>
               <th>Nama Tugas</th>
-              <th>Jenis Penugasan</th>
+              <th>Waktu Pelaksanaan</th>
               <th>Penyelenggara</th>
+              <th>Jenis Tugas</th>
+              <th>Aksi</th>
             </tr>
             </thead>
             <tbody>
@@ -55,19 +58,20 @@
                <tr>
                   <td>{{++$no}}</td>
                   <td>{{$data->no_surat}}</td>
-                  <td>{{$data->tanggal_surat}}</td>
+                  <td>{{formatTanggalIndonesia($data->tanggal_surat)}}</td>
                   <td>{{$data->nama_tugas}}</td>
-                  <td>{{$data->jenis_tugas}}</td>
+                  <td>{{formatTanggalIndonesia($data->tanggal_tugas_awal)}} @if($data->tanggal_tugas_awal != $data->tanggal_tugas_akhir) - {{formatTanggalIndonesia($data->tanggal_tugas_akhir)}} @endif</td>
                   <td>{{$data->penyelenggara}}</td>
+                  <td>{{$data->jenistugas}}</td>
                   <td>
                     <div class="btn-group">
                       <button class="btn btn-success dropdown-toggle" type="button" data-toggle="dropdown"><i class="fas fa-check nav-icon"></i>
                       <span class="caret"></span>
                       </button>
                       <div class="dropdown-menu" id="dropdown-action-id">
-                        <a class="dropdown-item" href="ubahlembur/{{$data->id}}">Ubah Data</a>
-                        <a class="dropdown-item swalDelete" href="hapuslembur/{{$data->id}}">Hapus Data</a>
-                        <a class="dropdown-item" href="cetaklembur/{{$data->id}}">Cetak</a>
+                        <a class="dropdown-item" href="ubahsurattugas/{{$data->id}}">Ubah Data</a>
+                        <a class="dropdown-item swalDelete" href="hapussurattugas/{{$data->id}}">Hapus Data</a>
+                        <a class="dropdown-item" href="cetaksurattugas/{{$data->id}}">Cetak</a>
                       </div>
                     </div>
                   </td>

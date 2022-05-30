@@ -1,10 +1,10 @@
 @extends('layouts.dashboard')
-@section('page_heading','Lembur Pegawai')
+@section('page_heading','Surat Tugas')
 @section('breadcrumb')
 <ol class="breadcrumb float-sm-right">
   <li class="breadcrumb-item"><a href="{{url('/')}}">Home</a></li>
-  <li class="breadcrumb-item"><a href="{{url('lembur')}}">Lembur Pegawai</a></li>
-  <li class="breadcrumb-item active">Tambah Lembur Pegawai</li>
+  <li class="breadcrumb-item"><a href="{{url('lembur')}}">Surat Tugas</a></li>
+  <li class="breadcrumb-item active">Tambah Surat Tugas</li>
 </ol>
 @endsection
 @section('content')
@@ -24,15 +24,12 @@
 	      </div>
 		  <!-- /.card-header -->
 		  <!-- form start -->
-		  <form role="form" id="tambahlembur" method="post" action="{{url('prosestambahlembur')}}" >
+		  <form role="form" id="tambahsurattugas" method="post" action="{{url('prosestambahsurattugas')}}" >
 		  	{{ csrf_field() }}
 	
 			<div class="card-body">
 				<div class="row">
 				    <div class="col-md-6">
-				      <div class="form-group">
-			        	<input type="hidden" name="id" class="form-control" id="txtID" value=""></input>
-			      	  </div>
 				      <div class="form-group">
 				        <label>No. Surat</label>
 				        <input type="text" name="no_surat" class="form-control" id="txtNoSurat" placeholder="Nomor Surat">
@@ -44,53 +41,93 @@
 		                  <div class="input-group-prepend">
 		                      <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
 		                  </div>
-	                	</div>
-			      	  </div>
-			      	  <div class="card">
-			      	  	<div class="card-header">
-			                <h4 class="card-title"><b>Yang Mengusulkan</b></h4>
-			            </div>
-			            <div class="card-body">
-			      	      <div class="form-group">
-					        <label>Nama</label>
-					        <select name="diusulkan" class="form-control select2bs4" style="width: 100%;">
-			                    <option value="" selected="selected">-- Pilih Satu --</option>
-			                    @foreach($pegawai as $data)
-			                        <option value="{{$data->id}}">{{$data->nama}}</option>
-			                    @endforeach
-			                </select>
-					      </div>
-					      <div class="form-group">
-					        	<label>Jabatan</label>
-					        	<input type="text" name="jabatan_pengusul" class="form-control" id="txtJabatanPengusul" placeholder="Jabatan Yang Mengusulkan">
-					      </div>
-					    </div>
-					  </div>
+	                </div>
 			      	</div>
+			      	<div class="form-group">
+				        <label>Nama Tugas</label>
+				        <input type="text" name="nama_tugas" class="form-control" id="txtNamaTugas" placeholder="Nama Tugas">
+				      </div>
+				      <div class="form-group">
+					        <label>Jenis Tugas</label>
+					        <select name="jenis_tugas" class="form-control select2bs4" style="width: 100%;">
+	                    <option value="" selected="selected">-- Pilih Satu --</option>
+	                    @foreach($jenistugas as $data)
+	                        <option value="{{$data->id}}">{{$data->jenis_tugas}}</option>
+	                    @endforeach
+			            </select>
+					    </div>
+					    <div class="form-group">
+					        <label>Metode Penugasan</label>
+					        <select name="metode" class="form-control select2bs4" style="width: 100%;">
+	                    <option value="" selected="selected">-- Pilih Satu --</option>
+	                    <option value="luring">Luring</option>
+	                    <option value="daring">Daring</option>
+	                    <option value="hybrid">Hybrid</option>
+			            </select>
+					    </div>
+					    <div class="form-group">
+				      		<label>Peserta</label>
+				      		<select name="peserta[]" id="txtPeserta" class="form-control select2bs4" multiple="multiple" style="width: 100%;" data-placeholder="Pilih Peserta">
+                          @foreach($pegawai as $data)
+                              <option value="{{$data->id}}">{{$data->nama}}</option>
+                          @endforeach
+                  </select>  
+				      	</div>
+			      </div>
 
 				    <div class="col-md-6">
-			      	    <div class="card">
+				      <div class="form-group">
+				        <label>Tanggal Tugas</label>
+				        <div class="row">
+				        	 <div class="col-md-5">
+						        <div class="input-group date">
+				                  <input type="text" name="tanggal_st_awal" class="form-control" id="datepickerawal" placeholder="dd/mm/yyyy" value="{{date('d/m/Y', strtotime(now()))}}">
+				                  <div class="input-group-prepend">
+				                      <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+				                  </div>
+			                	</div>
+			                </div>
+			                <div class="col-md-2">
+			            		<h5>s/d</h5>
+			                </div>
+			                <div class="col-md-5">
+			                	<div class="input-group date">
+				                  <input type="text" name="tanggal_st_akhir" class="form-control" id="datepickerakhir" placeholder="dd/mm/yyyy" value="{{date('d/m/Y', strtotime(now()))}}">
+				                  <div class="input-group-prepend">
+				                      <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+				                  </div>
+			                	</div>
+			                </div>
+		                </div>
+				      	</div>
+				      	<div class="form-group">
+					        <label>Penyelenggara</label>
+					        <input type="text" name="penyelenggara" class="form-control" id="txtPenyelenggara" placeholder="Penyelenggara">
+					      </div>
+				      	<div class="form-group">
+					        <div class="card">
 				      	  	<div class="card-header">
-				                <h4 class="card-title"><b>Yang Menyetujui</b></h4>
+				                <h4 class="card-title"><b>Yang Menandatangani</b></h4>
 				            </div>
-				            <div class="card-body">
-							    <div class="form-group">
-							        <label>Nama</label>
-							        <select name="disetujui" class="form-control select2bs4" style="width: 100%;">
-					                    <option value="" selected="selected">-- Pilih Satu --</option>
-					                    @foreach($pegawai as $data)
-					                        <option value="{{$data->id}}">{{$data->nama}}</option>
-					                    @endforeach
-					                </select>
-							    </div>
-							    <div class="form-group">
-							        <label>Jabatan</label>
-							        <input type="text" name="jabatan_penyetuju" class="form-control" id="txtJabatanPenyetuju" placeholder="Jabatan Yang Menyetujui">
-							    </div>
-							</div>
+				          	<div class="card-body">
+									    <div class="form-group">
+									        <label>Nama</label>
+									        <select name="penandatangan" class="form-control select2bs4" style="width: 100%;">
+							                    <option value="" selected="selected">-- Pilih Satu --</option>
+							                    @foreach($pegawai as $data)
+							                        <option value="{{$data->id}}">{{$data->nama}}</option>
+							                    @endforeach
+							            </select>
+									    </div>
+									    <div class="form-group">
+									        <label>Jabatan</label>
+									        <input type="text" name="jabatan_penandatangan" class="form-control" id="txtJabatanPenandatangan" placeholder="Jabatan Yang Menandatangani">
+									    </div>
+										</div>
+									</div>
+					     </div>
 						</div>
-					</div>
-			    </div>
+				</div>
 			</div>
 			<!-- /.card-body -->
 
@@ -177,6 +214,18 @@
            timer: 1500
         })
       }
+
+
+	  //datepicker
+	  $('#datepickerawal').datepicker({
+	      format: 'dd/mm/yyyy',
+	      autoclose: true
+		})
+
+		$('#datepickerakhir').datepicker({
+	      format: 'dd/mm/yyyy',
+	      autoclose: true
+		})
 
 	});
 </script>

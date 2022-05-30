@@ -18,10 +18,10 @@
    <table border="0" width="650" cellpadding="1" cellspacing="0" id="kopsurat">
       <tr>
         <td rowspan="5" cellpadding="4" ><img src="{{asset('image/logokemenperin.png')}}" width="180px"></td>
-        <td align="center" style="font-size:11pt">BADAN STANDARDISASI DAN KEBIJAKAN JASA INDUSTRI</td>
+        <td align="center" style="font-size:10pt">BADAN STANDARDISASI DAN KEBIJAKAN JASA INDUSTRI</td>
       </tr>
       <tr valign="top">
-          <td align="center" style="font-size:12pt"><b>BALAI RISET DAN STANDARDISASI INDUSTRI MEDAN</b></td>
+          <td align="center" style="font-size:10.5pt"><b>BALAI STANDARDISASI DAN PELAYANAN JASA INDUSTRI MEDAN</b></td>
       </tr>
       <tr valign="top">
           <td align="center" style="font-size:9pt">Jl. Sisingamangaraja No. 24, Telp. (061) 7363471, 7365379, Fax. (061) 7362830</td>
@@ -50,7 +50,7 @@
           <tr>
             <td width="30%">UNIT KERJA</td>
             <td>:</td>
-            <td>BARISTAND INDUSTRI MEDAN</td>
+            <td>BSPJI MEDAN</td>
           </tr>
           <tr>
             <td>BULAN</td>

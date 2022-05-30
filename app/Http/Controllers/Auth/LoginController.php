@@ -46,12 +46,20 @@ class LoginController extends Controller
     }
 
     function authenticated(Request $request, $user)
-    {
+    {   
+        //Absen dicatat ketika login!
         /*$data = array(
           'username' => $user->username,
           'waktu_login' => Carbon::now()->toDateTimeString(),
         );
 
         $insertID = DB::table('td_login_history')->insertGetId($data);*/
+
+        if($user->hasRole('admin'))
+        {
+            return redirect()->route('home');
+        }
+
+        return redirect('formabsen');
     }
 }

@@ -98,17 +98,17 @@
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-
+        @if(Auth::user()->role =="admin")
           <li class="nav-item">
-            <a href="{{url('formabsen')}}" class="nav-link">
+            <a href="{{url('home')}}" class="nav-link">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
                 Dashboard
               </p>
             </a>
           </li>
-        @if(Auth::user()->role =="admin")
-        <li class="nav-item">
+
+          <li class="nav-item">
             <a href="{{url('pegawai')}}" class="nav-link">
               <i class="nav-icon fas fa-users"></i>
               <p>
@@ -116,39 +116,84 @@
               </p>
             </a>
           </li>
+
+        @endif
+
+          <!--Absen-->
           <li class="nav-item">
-            <a href="{{url('lembur')}}" class="nav-link">
-              <i class="nav-icon fas fa-file"></i>
-              <p>
-                Lembur
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="{{url('daftarlemburpegawai')}}" class="nav-link">
-              <i class="nav-icon fas fa-file"></i>
-              <p>
-               Daftar Lembur Pegawai
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="{{url('daftarlemburperbulan')}}" class="nav-link">
-              <i class="nav-icon fas fa-file"></i>
-              <p>
-               Daftar Lembur per Bulan
-              </p>
-            </a>
-          </li>
-          @endif
-          <li class="nav-item">
-            <a href="{{url('pilihabsen')}}" class="nav-link">
+            <a href="#" class="nav-link">
               <i class="nav-icon fas fa-table"></i>
               <p>
-                Daftar Absen
+                Absen
+                <i class="fas fa-angle-left right"></i>
               </p>
             </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{url('formabsen')}}" class="nav-link">
+                  <i class="fas fa-chevron-right nav-icon"></i>
+                  <p>Form Absen</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{url('daftarabsenpegawai')}}" class="nav-link">
+                  <i class="fas fa-chevron-right nav-icon"></i>
+                  <p>Daftar Absen Pegawai</p>
+                </a>
+              </li>
+            
+
+            @if(Auth::user()->role =="admin")
+              <li class="nav-item">
+                <a href="{{url('pilihabsen')}}" class="nav-link">
+                  <i class="fas fa-chevron-right nav-icon"></i>
+                  <p>Daftar Absen</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{url('inputabsenseries')}}" class="nav-link">
+                  <i class="fas fa-chevron-right nav-icon"></i>
+                  <p>Input Absen Series</p>
+                </a>
+              </li>
+            @endif
+            </ul>
           </li>
+
+          @if(Auth::user()->role =="admin")
+          <!--Lembur-->
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-clock"></i>
+              <p>
+                Lembur
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{url('lembur')}}" class="nav-link">
+                  <i class="fas fa-chevron-right nav-icon"></i>
+                  <p>Daftar Lembur</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{url('daftarlemburpegawai')}}" class="nav-link">
+                  <i class="fas fa-chevron-right nav-icon"></i>
+                  <p>Lembur per Pegawai</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{url('daftarlemburperbulan')}}" class="nav-link">
+                  <i class="fas fa-chevron-right nav-icon"></i>
+                  <p>Lembur per Bulan</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          @endif
+
+          
            @if(Auth::user()->role =="admin")
            <li class="nav-item">
             <a href="{{url('surattugas')}}" class="nav-link">
@@ -157,6 +202,37 @@
                 Surat Tugas
               </p>
             </a>
+          </li>
+
+          <!--Pengaturan-->
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-cog"></i>
+              <p>
+                Pengaturan
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{url('role')}}" class="nav-link">
+                  <i class="fas fa-chevron-right nav-icon"></i>
+                  <p>Role</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{url('permission')}}" class="nav-link">
+                  <i class="fas fa-chevron-right nav-icon"></i>
+                  <p>Permission</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{url('user')}}" class="nav-link">
+                  <i class="fas fa-chevron-right nav-icon"></i>
+                  <p>User</p>
+                </a>
+              </li>
+            </ul>
           </li>
            @endif
         </ul>

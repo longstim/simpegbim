@@ -1,9 +1,25 @@
 <?php
    
-	function customTanggal($date,$date_format)
+	function customTanggal($date, $date_format)
 	{
 	    return \Carbon\Carbon::createFromFormat('Y-m-d', $date)->format($date_format);    
 	}
+
+    function formatTanggalIndonesia($date)
+    {
+        setlocale(LC_ALL, 'IND');
+        $tanggal = \Carbon\Carbon::parse($date)->formatLocalized('%d %B %Y');
+
+        return $tanggal;
+    }
+
+    function formatTanggalIndonesiaV2($date)
+    {
+        setlocale(LC_ALL, 'IND');
+        $tanggal = \Carbon\Carbon::parse($date)->formatLocalized('%d-%m-%Y');
+
+        return $tanggal;
+    }
 	    
 	function hitungUangLembur(int $jam_lembur, string $tanggal_lembur, string $gol)
     {
@@ -136,5 +152,10 @@
         }
 
         return $hari_ini;
+    }
+
+    function getNamaUNOR()
+    {
+        return "Balai Sandardisasi dan Pelayanan Jasa Industri Medan";
     }
 ?>

@@ -161,6 +161,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         TelegramNotifications\TelegramServiceProvider::class,
         Stevebauman\Location\LocationServiceProvider::class,
+        Spatie\Permission\PermissionServiceProvider::class,
     ],
 
     /*

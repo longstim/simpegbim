@@ -48,26 +48,40 @@
 				<td rowspan="2" align="center">{{++$no}}</td>
 				<td rowspan="2" align="center">{{$data->nip}}</td>
 				<td rowspan="2">{{$data->nama}}</td>
-				<td align="center">M</td>
+				<td align="center"><b>M</b></td>
 			
 				@php
 	          	$i = 0;
-	          	@endphp
-				@foreach($tanggal as $tgl)
-					@php
+				foreach($tanggal as $tgl)
+				{					
 		          	$jamMasuk ="";
-		          	@endphp
-					@foreach($absen as $abs)
-						@php
-							$timestamp = strtotime($abs->waktu_masuk);
-							$newTglMasuk = date("j", $timestamp);
-							if($data->nip==$abs->username AND $tanggal[$i]==$newTglMasuk)
-							{
-								$jamMasuk = date("H:i", $timestamp);
-							}
-						@endphp
-					@endforeach
-					@php
+
+					foreach($absen as $abs)
+					{
+
+						$tanggalabsen = strtotime($abs->tanggal);
+						$newTglMasuk = date("j", $tanggalabsen);
+
+						$timestamp = strtotime($abs->waktu_masuk);
+
+						if($data->nip==$abs->username AND $tanggal[$i]==$newTglMasuk)
+						{
+							$jamMasuk = date("H:i", $timestamp);
+						}
+					}
+
+
+					foreach($daftartidakmasukkerja as $tmk)
+		            {
+		            	$tanggaltmk= strtotime($tmk->tanggal_absen);
+						$newTglTMK= date("j", $tanggaltmk);
+
+						if($data->nip==$tmk->username AND $tanggal[$i]==$newTglTMK)
+						{
+							$jamMasuk = $tmk->status;
+						}
+		            }
+
 					if(empty($jamMasuk))
 					{
 					@endphp
@@ -81,11 +95,11 @@
 					@php
 					}
 					$i++;
-					@endphp
-				@endforeach
+				}
+			@endphp
 			</tr>
 			<tr>
-				<td align="center">P</td>
+				<td align="center"><b>P</b></td>
 				
 				@php
 	          	$i = 0;
@@ -96,8 +110,12 @@
 		          	@endphp
 					@foreach($absen as $abs)
 						@php
+							
+							$tanggalabsen = strtotime($abs->tanggal);
+							$newTglPulang = date("j", $tanggalabsen);
+
 							$timestamp = strtotime($abs->waktu_pulang);
-							$newTglPulang = date("j", $timestamp);
+
 							if($data->nip==$abs->username AND $tanggal[$i]==$newTglPulang)
 							{
 								$jamPulang = date("H:i", $timestamp);

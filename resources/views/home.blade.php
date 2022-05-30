@@ -5,7 +5,7 @@
    <div class="row">
       <div class="col-lg-3 col-6">
         <!-- small box -->
-        <div class="small-box bg-info">
+        <div class="small-box bg-primary">
           <div class="inner">
             <h3>{{$data['jlhpegawai']}}</h3>
 
@@ -66,12 +66,37 @@
       </div>
 
       <div class="row">
-          <!-- PIE CHART -->
+          <!-- GOLONGAN RUANG CHART -->
+          <div class = "col-md-6">
+            <div class="card card-light">
+              <div class="card-header">
+                <h3 class="card-title"><b>Golongan Ruang</b></h3>    
+                <div class="card-tools">
+                  <a href="{{ url('/lappangkatgol') }}" class="btn btn-tool" role="button"><i class="fas fa-eye" data-toggle="tooltip" data-placement="top" title="Detail"></i></a>
+                  <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                    <i class="fas fa-minus"></i>
+                  </button>
+                  <button type="button" class="btn btn-tool" data-card-widget="remove">
+                    <i class="fas fa-times"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="chart">
+                  <canvas id="barChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                </div>
+              </div>
+              <!-- /.card-body -->
+          </div>
+          <!-- /.card -->
+        </div>
+
+          <!-- JENIS KELAMIN CHART -->
           <div class = "col-md-6">
 
-            <div class="card card-danger">
+            <div class="card card-light">
               <div class="card-header">
-                <h3 class="card-title">Data Pangkat</h3>
+                <h3 class="card-title"><b>Jenis Kelamin</b></h3>
 
                 <div class="card-tools">
                   <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -91,33 +116,85 @@
           </div>
       </div>
 
+      <div class="row">
+
+        <!-- JABATAN-->
+          <div class = "col-md-6">
+
+            <div class="card card-light">
+              <div class="card-header">
+                <h3 class="card-title"><b>Jabatan</b></h3>
+
+                <div class="card-tools">
+                  <a href="{{ url('/lapjabatanfungsional') }}" class="btn btn-tool" role="button"><i class="fas fa-eye" data-toggle="tooltip" data-placement="top" title="Detail"></i></a>
+                  <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                    <i class="fas fa-minus"></i>
+                  </button>
+                  <button type="button" class="btn btn-tool" data-card-widget="remove">
+                    <i class="fas fa-times"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="card-body">
+                <canvas id="donutChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>
+
+          <!-- PENDIDIKAN -->
+          <div class = "col-md-6">
+            <div class="card card-light">
+              <div class="card-header">
+                <h3 class="card-title"><b>Pendidikan</b></h3>
+
+                <div class="card-tools">
+                  <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                    <i class="fas fa-minus"></i>
+                  </button>
+                  <button type="button" class="btn btn-tool" data-card-widget="remove">
+                    <i class="fas fa-times"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="chart">
+                  <canvas id="pendidikanChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                </div>
+              </div>
+              <!-- /.card-body -->
+          </div>
+          <!-- /.card -->
+        </div>
+
+      </div>
+
 <!-- ChartJS -->
 <script src="{{asset('assets/plugins/chart.js/Chart.min.js')}}"></script>
 <script src="{{asset('js/jquery.min.js')}}"></script>
 <script>
   $( document ).ready(function () {
  
-    var dataGol        = {
+    //-------------
+    //- JENIS KELAMIN CHART -
+    //-------------
+
+    var dataJK        = {
       labels: [
-          'Gol. I',
-          'Gol. II',
-          'Gol. III',
-          'Gol. IV',
+          'Laki-laki', 'Perempuan',
       ],
       datasets: [
         {
-          data: [700,500,400,100],
-          backgroundColor : ['#f56954', '#00a65a', '#f39c12', '#3c8dbc',],
+          data: [{{$datajk['lk']}},{{$datajk['pr']}}],
+          backgroundColor : ['#f56954',  '#00a65a'],
         }
       ]
     }
 
-    //-------------
-    //- PIE CHART -
-    //-------------
     // Get context with jQuery - using jQuery's .get() method.
     var pieChartCanvas = $('#pieChart').get(0).getContext('2d')
-    var pieData        = dataGol;
+    var pieData        = dataJK;
     var pieOptions     = {
       maintainAspectRatio : false,
       responsive : true,
@@ -129,6 +206,113 @@
       data: pieData,
       options: pieOptions
     })
+
+
+    //-------------
+    //- GOLONGAN RUANG CHART -
+    //-------------
+
+    var areaChartData = {
+    labels  : ['Gol. I', 'Gol. II', 'Gol. III', 'Gol. IV'],
+    datasets: [
+        {
+          label               : 'Golongan',
+          backgroundColor     : '#dc3545',
+          borderColor         : 'rgba(210, 214, 222, 1)',
+          pointRadius         : false,
+          pointColor          : 'rgba(210, 214, 222, 1)',
+          pointStrokeColor    : '#c1c7d1',
+          pointHighlightFill  : '#fff',
+          pointHighlightStroke: 'rgba(220,220,220,1)',
+          data                : [{{$datagol['gol1']}},{{$datagol['gol2']}},{{$datagol['gol3']}},{{$datagol['gol4']}}]
+        }
+      ]
+    }
+
+    var barChartCanvas = $('#barChart').get(0).getContext('2d')
+    var barChartData = $.extend(true, {}, areaChartData)
+    var temp1 = areaChartData.datasets[0]
+    barChartData.datasets[0] = temp1
+
+    var barChartOptions = {
+      responsive              : true,
+      maintainAspectRatio     : false,
+      datasetFill             : false
+    }
+
+    new Chart(barChartCanvas, {
+      type: 'bar',
+      data: barChartData,
+      options: barChartOptions
+    })
+
+    //-------------
+    //- JABATAN CHART -
+    //-------------
+
+    // Get context with jQuery - using jQuery's .get() method.
+    var donutChartCanvas = $('#donutChart').get(0).getContext('2d')
+    var donutData        = {
+      labels: ['Struktural', 'Fungsional', 'Pelaksana',
+      ],
+      datasets: [
+        {
+          data: [{{$datajabatan['struktural']}}, {{$datajabatan['fungsional']}}, {{$datajabatan['pelaksana']}}],
+          backgroundColor : ['#007bff', '#20c997', '#17a2b8'],
+        }
+      ]
+    }
+    var donutOptions     = {
+      maintainAspectRatio : false,
+      responsive : true,
+    }
+    //Create pie or douhnut chart
+    // You can switch between pie and douhnut using the method below.
+    new Chart(donutChartCanvas, {
+      type: 'doughnut',
+      data: donutData,
+      options: donutOptions
+    })
+
+
+    //-------------
+    //- PENDIDIKAN CHART -
+    //-------------
+
+    var areaChartData = {
+    labels  : ['SD', 'SMP', 'SMA', 'D1', 'D2', 'D3', 'S1', 'S2', 'S3'],
+    datasets: [
+        {
+          label               : 'Pendidikan',
+          backgroundColor     : '#007bff',
+          borderColor         : 'rgba(210, 214, 222, 1)',
+          pointRadius         : false,
+          pointColor          : 'rgba(210, 214, 222, 1)',
+          pointStrokeColor    : '#c1c7d1',
+          pointHighlightFill  : '#fff',
+          pointHighlightStroke: 'rgba(220,220,220,1)',
+          data                : [{{$datapendidikan['sd']}}, {{$datapendidikan['smp']}}, {{$datapendidikan['sma']}}, {{$datapendidikan['d1']}}, {{$datapendidikan['d2']}}, {{$datapendidikan['d3']}}, {{$datapendidikan['s1']}}, {{$datapendidikan['s2']}}, {{$datapendidikan['s3']}}]
+        }
+      ]
+    }
+
+    var barChartCanvas = $('#pendidikanChart').get(0).getContext('2d')
+    var barChartData = $.extend(true, {}, areaChartData)
+    var temp1 = areaChartData.datasets[0]
+    barChartData.datasets[0] = temp1
+
+    var barChartOptions = {
+      responsive              : true,
+      maintainAspectRatio     : false,
+      datasetFill             : false
+    }
+
+    new Chart(barChartCanvas, {
+      type: 'bar',
+      data: barChartData,
+      options: barChartOptions
+    })
+
     
   })
 </script>

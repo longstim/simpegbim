@@ -70,9 +70,9 @@
                       <span class="caret"></span>
                       </button>
                       <div class="dropdown-menu" id="dropdown-action-id">
+                         <a class="dropdown-item" href="profilpegawai/{{$data->id}}">Profil</a>
                         <a class="dropdown-item" href="ubahkodearsip/{{$data->id}}">Ubah Data</a>
                         <a class="dropdown-item swalDelete" href="hapuskodearsip/{{$data->id}}">Hapus Data</a>
-                        <a class="dropdown-item" href="profilpegawai/{{$data->id}}">Detail</a>
                       </div>
                     </div>
                   </td>
